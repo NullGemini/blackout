@@ -1,0 +1,10 @@
+.board {
+	background-color: #999999;
+}
+
+.row {
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	height: 64px;
+}
