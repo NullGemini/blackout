@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import logo from './images/logo.svg';
-import './css/App.css';
-import Board from './components/board';
+import logo from '../images/logo.svg';
+import '../css/app.css';
+import Board from './board';
 
 class App extends Component {
 	render() {
@@ -11,9 +11,6 @@ class App extends Component {
 				<img src={logo} className="App-logo" alt="logo" />
 				<h2>Welcome to React</h2>
 			</div>
-			<p className="App-intro">
-				Board Below
-			</p>
 			<Board />
 		</div>
 		);

@@ -4,6 +4,8 @@ import '../css/tile.css';
 class Tile extends Component {
 
 	constructor(props) {
+		//light
+		//handleClick
 		super(); 
 	}
 
@@ -11,7 +13,6 @@ class Tile extends Component {
 		return (
 		<div
 			className={this.props.light?'tile light-on':'tile light-off'}
-			key={this.props.index}
 			onClick={ this.props.handleClick }
 			>
 		</div>
