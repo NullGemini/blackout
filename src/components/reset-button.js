@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/reset-button.css';
 
+
 class ResetButton extends Component {
 
 	constructor(props) {
@@ -10,7 +11,7 @@ class ResetButton extends Component {
 
 	render() {
 		return (
-		<button onClick={ this.props.handleClick } >Reset Board</button>
+		<button className="btn btn-primary" onClick={ this.props.handleClick } >Reset Board</button>
 		);
 	}
 };

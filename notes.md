@@ -1,19 +1,11 @@
-need a board w/ 25 tiles
+Add validation
 
-need a click function to update the neighboring tiles
+Add flip styles
 
-need a function to check if boad is cleared
+Add other styles
 
-need a function to create game w/ seed
+Add other content
 
-add game count
+Add bootstrap
 
-display win screen
-
-make demo mode until game is started
-
-add flip styles
-
-add other styles
-
-reset current game
+hookup to DB w/ levels that have seeds and min moves
