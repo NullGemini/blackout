@@ -4,7 +4,8 @@ import '../css/reset-button.css';
 class ResetButton extends Component {
 
 	constructor(props) {
-		super(); 
+		super();
+		//handleClick
 	}
 
 	render() {

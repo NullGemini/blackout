@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Tile from './tile';
 import TopUI from './top-ui';
+import Tile from './tile';
+import BottomUI from './bottom-ui';
+import WinScreen from './win-screen';
 import '../css/board.css';
 
 class Board extends Component {
@@ -16,17 +18,16 @@ class Board extends Component {
 				[false, false, false, false, false], 
 				[false, false, false, false, false]
 			],
-			blackout: true,
 			mode: 'demo',
-			seed: 33554432,
+			seed: 1,
 			moves: 0
 		};
 	}
 
-	//////// HANDLERS ////////
+
+	//////// GAME UI METHODS ////////
 
 	// Handles the resetting of the board to the current seed
-	// TODO: Change to take a seed and update the matrix based off the seed
 	resetClickHandler () {
 		//Seed needs to be between 1 - 33,554,432
 		let seed = this.state.seed;
@@ -58,8 +59,43 @@ class Board extends Component {
 
 		this.setState({moves: 0});
 		this.setState({lights: lights});
-		this.setState({blackout: false});
 	}
+
+
+	// Handles the cliking of Random Button
+	randomClickHandler() {
+		const seed = Math.floor(Math.random() * (33554431)) + 1;
+		this.setState({seed: seed})
+	}
+
+	// Takes a new event and updates the board's seed off the value
+	updateSeed(e) {
+		const value = e.target.value;
+		this.setState({seed: value});
+	}
+
+	// Begins a new game with the current seed
+	startGame() {
+		this.setState({mode: 'play'});
+		this.resetClickHandler();
+	}
+
+	// Ends game and clears board to begin demo mode
+	quitGame() {
+		const lights = [
+			[false, false, false, false, false],
+			[false, false, false, false, false],
+			[false, false, false, false, false],
+			[false, false, false, false, false], 
+			[false, false, false, false, false]
+		]
+		this.setState({lights: lights});
+		this.setState({mode: 'demo'});
+		this.setState({moves: 0});
+	}
+
+
+	//////// GAME BOARD METHODS ////////
 
 	// Handles the clicking of the tiles in game
 	tileClickHandler (x, y) {
@@ -70,23 +106,6 @@ class Board extends Component {
 			this.checkBoard();
 		}
 	}
-
-
-	//////// GAME UI METHODS ////////
-
-	// Takes a new event and updates the board's seed off the value
-	updateSeed(e) {
-		const value = e.target.value;
-		this.setState({seed: value});
-	}
-
-	startGame() {
-		this.setState({mode: 'play'});
-		this.resetClickHandler();
-	}
-
-
-	//////// GAME BOARD METHODS ////////
 
 	// Takes the x & y coordinates and flips the tile's light status
 	updateLight(x, y) {
@@ -124,7 +143,9 @@ class Board extends Component {
 				}
 			}
 		}
-		this.setState({blackout: blackout});
+		if (blackout) {
+			this.setState({mode: 'win'});
+		}
 	}
 
 
@@ -138,27 +159,36 @@ class Board extends Component {
 	}
 
 	//////// COMPONENT LIFECYCLE METHODS ////////
-
-	// Sets timer for demo mode
-	componentDidMount() {
-		/*
+	
+	componentWillMount() {
+		// Sets timer for demo mode
 		if (this.state.mode ==='demo') {
 			this.timerID = setInterval(
 				() => this.lightRandom(),
 				1000
 			);
-		}
-		*/
-		console.log('mount');
+		} 
 	}
 
-	// Clears timer for demo mode
-	componentWillUnmount() {
+	componentDidUpdate() {
+		// Clears and sets timer for demo (prevents multiple threads)
 		if (this.state.mode ==='demo') {
+			clearInterval(this.timerID);
+			this.timerID = setInterval(
+				() => this.lightRandom(),
+				1000
+			);
+		// Just clears time if not in demo mode
+		} else {
 			clearInterval(this.timerID);
 		}
 	}
 
+	
+	componentWillUnmount() {
+		// Clears timer for demo mode if board ever unmounts
+		clearInterval(this.timerID);
+	}
 
 	// Main render method
 	render () {
@@ -183,19 +213,26 @@ class Board extends Component {
 
 		return (
 			<div className="board">
+				<WinScreen
+				mode={this.state.mode}
+				seed={this.state.seed}
+				moves={this.state.moves}
+				handleQuit={this.quitGame.bind(this)}
+				/>
 				<TopUI
 					mode={this.state.mode}
+					seed={this.state.seed}
 					handleResetClick={this.resetClickHandler.bind(this)}
 					handleUpdateSeed={this.updateSeed.bind(this)}
 					handleStart={this.startGame.bind(this)}
-					seed={this.state.seed}
+					handleRandom={this.randomClickHandler.bind(this)}
+					handleQuit={this.quitGame.bind(this)}
 				/>
 				{builtBoard}
-				/*
-				{this.state.mode === 'play'?'<h2>Moves Made: {this.state.moves}</h2>':''}
-				*/
-				<h2>Moves Made: {this.state.moves}</h2>
-				<h2>Blackout: {this.state.blackout?'true':'false'}</h2>
+				<BottomUI
+					mode={this.state.mode}
+					moves={this.state.moves}
+				/>
 			</div>
 		);
 	}

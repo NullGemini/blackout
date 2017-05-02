@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ResetButton from './reset-button';
+import QuitButton from './quit-button';
 import '../css/top-ui.css';
 
 class TopUI extends Component {
@@ -10,6 +11,8 @@ class TopUI extends Component {
 		//seed
 		//handleUpdateSeed
 		//handleStart
+		//handleRandom
+		//handleQuit
 	}
 
 	render() {
@@ -18,7 +21,7 @@ class TopUI extends Component {
 			<div className='row'>
 				<label>Seed</label>
 				<input type="text" value={this.props.seed} onChange={this.props.handleUpdateSeed}/>
-				<button>Random</button>
+				<button onClick={this.props.handleRandom}>Random</button>
 				<button onClick={this.props.handleStart}>Start</button>
 			</div>
 			);
@@ -26,15 +29,12 @@ class TopUI extends Component {
 			return (
 				<div className='row'>
 					<ResetButton handleClick={ this.props.handleResetClick }/>
+					<QuitButton handleClick={ this.props.handleQuit } title='Quit Game' />
 					<h2>Seed: {this.props.seed}</h2>
 				</div>
 			);
 		} else {
-			return (
-				<div className='row'>
-
-				</div>
-			);
+			return null;
 		}
 	}
 }
