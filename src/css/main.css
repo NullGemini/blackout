@@ -1,0 +1,176 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 1.5em;
+	font-family: sans-serif;
+	background-image: url('../images/background.jpg');
+	background-repeat: repeat;
+}
+
+#app {
+	text-align: center;
+	min-width: 375px;
+	max-width: 600px;
+	margin: 0 auto;
+	background-color: #999999;
+}
+
+#app-header {
+	background-color: #222222;
+	padding: 0px 10px 10px 10px;
+	color: white;
+}
+
+#title {
+	font-family: 'Fredericka the Great', cursive;
+	font-size: 60px;
+	margin-bottom: -10px;
+}
+
+#footer {
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-top: 10px;
+	padding-bottom: 10px;
+	text-align: right;
+}
+
+.react-logo {
+	animation: App-logo-spin infinite 20s linear;
+	height: 32px;
+}
+
+@keyframes App-logo-spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+
+#area {
+	background-color: #999999;
+	padding-top: 10px;
+}
+
+#win-title {
+	font-family: 'Fredericka the Great', cursive;
+	text-align: center;
+	font-size: 24px;
+}
+
+/* Customize Bootstrap Defaults */
+
+.btn-outline-secondary {
+	border: 1px solid #FFFFFF;
+}
+
+.btn-outline-secondary:hover {
+	background-color: #666666;
+	color: #FFFFFF;
+}
+
+.modal-content {
+	background-color: #BBBBBB;
+}
+
+.modal-header {
+	background-color: #222222;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+}
+
+.container {
+	min-width: 345px;
+	max-width: 570px;
+}
+
+.row {
+	min-height: 34px;
+	margin-bottom: 5px;
+}
+
+.btn-primary {
+	background-image: -webkit-linear-gradient(top,#DDDD00 0,#b5b500 100%);
+	background-image: -o-linear-gradient(top,#DDDD00 0,#b5b500 100%);
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#DDDD00),to(#b5b500));
+	background-image: linear-gradient(to bottom,#DDDD00 0,#b5b500 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffDDDD00', endColorstr='#ffb5b500', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	background-repeat: repeat-x;
+	border-color: #9a9a00;
+	color: #000000;
+	min-width: 80px;
+}
+
+.btn-primary:focus, .btn-primary:active:hover {
+	background-color:#b5b500;
+}
+
+.btn-primary:hover {
+	background-color:#9a9a00;
+}
+
+.input-group-addon:first-child {
+	min-width: 74px;
+	font-weight: bold;
+	text-align: left;
+}
+
+/* Game Board Styles */
+
+#board {
+
+	margin-right: auto;
+	margin-left: auto;
+	min-width: 345px;
+	max-width: 570px;
+	min-height: 345px;
+	max-height: 570px;
+}
+
+.tile-row {
+	padding-right: 15px;
+	padding-left: 15px;
+	margin: 0;
+	line-height: 0;
+}
+
+.tile {
+	display: inline-block;
+	min-width: 65px;
+	min-height: 65px;
+	width: 18%;
+	padding-top: 18%;
+	margin: 2px;
+	border-radius: 5px;
+
+	box-shadow: inset 0 0 30px rgba(255, 255, 255, 0);
+	text-shadow: none;
+	-webkit-transition: all 350ms cubic-bezier(0.19, 1, 0.22, 1);
+	transition: all 350ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.play {
+	cursor: pointer;
+}
+
+.play:focus, .play:active:hover {
+	box-shadow: inset 0 0 30px rgba(255, 255, 255, 0);
+	text-shadow: none;
+	-webkit-transition: all 350ms cubic-bezier(0.19, 1, 0.22, 1);
+	transition: all 350ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+
+.play:hover {
+	box-shadow: inset 0 0 30px rgba(255, 255, 255, .7), 0 0 20px rgba(255, 255, 255, .1);
+}
+
+.light-on {
+	background-color: #FFFF00;
+}
+
+.light-off {
+	background-color: #000000;
+}

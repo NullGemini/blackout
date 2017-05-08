@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 import TopUI from './top-ui';
 import Tile from './tile';
-import BottomUI from './bottom-ui';
-import WinScreen from './win-screen';
-import '../css/board.css';
 
 class Board extends Component {
 
@@ -20,7 +18,8 @@ class Board extends Component {
 			],
 			mode: 'demo',
 			seed: 1,
-			moves: 0
+			moves: 0,
+			blackout: false
 		};
 	}
 
@@ -59,8 +58,8 @@ class Board extends Component {
 
 		this.setState({moves: 0});
 		this.setState({lights: lights});
+		this.setState({blackout: false});
 	}
-
 
 	// Handles the cliking of Random Button
 	randomClickHandler() {
@@ -91,7 +90,24 @@ class Board extends Component {
 		]
 		this.setState({lights: lights});
 		this.setState({mode: 'demo'});
+		this.setState({blackout: false});
 		this.setState({moves: 0});
+	}
+
+	close() {
+		this.quitGame();
+	}
+
+	validateSeed() {
+		if (this.state.seed > 0 && this.state.seed < 33554432) {
+			//if (this.state.seed.isInteger()) {
+				this.startGame()
+			//} else {
+			//	alert('The seed you entered is not an integer.')
+			//}
+		} else {
+			alert('The seed you entered needs to be an integer between 1 and 33,554,432.')
+		}
 	}
 
 
@@ -145,6 +161,7 @@ class Board extends Component {
 		}
 		if (blackout) {
 			this.setState({mode: 'win'});
+			this.setState({blackout: 'true'});
 		}
 	}
 
@@ -184,7 +201,6 @@ class Board extends Component {
 		}
 	}
 
-	
 	componentWillUnmount() {
 		// Clears timer for demo mode if board ever unmounts
 		clearInterval(this.timerID);
@@ -204,35 +220,43 @@ class Board extends Component {
 						key={ index.toString() }
 						light={this.state.lights[x][y]}
 						handleClick={this.tileClickHandler.bind(this, x, y)}
+						mode={this.state.mode}
 					/>
 				);
 			}
-			builtBoard.push(<div key={x.toString()} className="row">{builtRow}</div>);
+			builtBoard.push(<div key={x.toString()} className="tile-row">{builtRow}</div>);
 		}
 		// Building the bame board END
 
 		return (
-			<div className="board">
-				<WinScreen
-				mode={this.state.mode}
-				seed={this.state.seed}
-				moves={this.state.moves}
-				handleQuit={this.quitGame.bind(this)}
-				/>
+			<div id="area">
 				<TopUI
 					mode={this.state.mode}
 					seed={this.state.seed}
 					handleResetClick={this.resetClickHandler.bind(this)}
 					handleUpdateSeed={this.updateSeed.bind(this)}
-					handleStart={this.startGame.bind(this)}
+					handleStart={this.validateSeed.bind(this)}
 					handleRandom={this.randomClickHandler.bind(this)}
 					handleQuit={this.quitGame.bind(this)}
-				/>
-				{builtBoard}
-				<BottomUI
-					mode={this.state.mode}
 					moves={this.state.moves}
 				/>
+
+				{builtBoard}
+
+				<Modal show={this.state.blackout} onHide={this.close.bind(this)}>
+					<Modal.Header>
+						<Modal.Title><div id="win-title">BLACKOUT</div></Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<h4>Winner!</h4>
+						<h4>Seed: {this.state.seed}</h4>
+						<h4>Total moves: {this.state.moves}</h4>
+						<p>See if you or your friends can beat your score!</p>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button bsClass="primary" onClick={this.close.bind(this)}>Return to Menu</Button>
+					</Modal.Footer>
+				</Modal>
 			</div>
 		);
 	}

@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
-import '../css/tile.css';
 
 class Tile extends Component {
 
 	constructor(props) {
 		//light
 		//handleClick
+		//mode
 		super(); 
 	}
 
 	render() {
-		return (
-		<div
-			className={this.props.light?'tile light-on':'tile light-off'}
-			onClick={ this.props.handleClick }
-			>
-		</div>
-		);
+		if (this.props.mode === 'play'){
+			return (
+			<div
+				className={this.props.light ? 'tile play light-on' : 'tile play light-off'}
+				onClick={ this.props.handleClick }
+				>
+			</div>
+			);
+		} else {
+			return (
+			<div
+				className={this.props.light ? 'tile light-on' : 'tile light-off'}
+				onClick={ this.props.handleClick }
+				>
+			</div>
+			);
+		}
 	}
 };
 

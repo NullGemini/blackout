@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/quit-button.css';
 
 class QuitButton extends Component {
 
@@ -11,7 +10,7 @@ class QuitButton extends Component {
 
 	render() {
 		return (
-		<button onClick={ this.props.handleClick } >{this.props.title}</button>
+		<button className="btn btn-primary btn-sm" onClick={ this.props.handleClick } >{this.props.title}</button>
 		);
 	}
 };
