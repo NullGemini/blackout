@@ -1,15 +1,15 @@
 {
   "name": "blackout",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
-    "react": "^15.5.4",
-    "react-bootstrap": "^0.31.0",
-    "react-dom": "^15.5.4"
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.3.2"
   },
   "homepage": "http://nullgemini.com/blackout",
   "devDependencies": {
-    "react-scripts": "0.9.5"
+    "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
